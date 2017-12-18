@@ -136,3 +136,8 @@ alias reload="exec ${SHELL} -l"
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
+
+# Screen ssh
+function ysh(){
+  screen -t $1 ssh $1
+}
