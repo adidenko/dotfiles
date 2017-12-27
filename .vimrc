@@ -113,6 +113,8 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 " Autoindent
+set expandtab
+set tabstop=2
+set shiftwidth=2
 set autoindent
 filetype plugin indent on
-
