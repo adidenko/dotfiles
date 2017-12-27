@@ -141,3 +141,7 @@ alias path='echo -e ${PATH//:/\\n}'
 function ysh(){
   screen -t $1 ssh $1
 }
+
+# Git
+alias syncupstrem="git fetch upstream && git checkout master && git merge upstream/master"
+
