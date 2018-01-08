@@ -145,3 +145,9 @@ function ysh(){
 # Git
 alias syncupstrem="git fetch upstream && git checkout master && git merge upstream/master"
 
+# Kubernetes
+alias k8s-node-taints="kubectl get nodes -o go-template-file="${HOME}/.kubernetes/templates/nodes-taints.tmpl""
+alias k8s-netchecker="curl -s \$(kubectl -n netchecker get svc netchecker-service -o jsonpath="{.spec.clusterIP}:{.spec.ports[0].port}")/api/v1/connectivity_check"
+alias k8s-install-echo="kubectl run echo-svc --image=gcr.io/google_containers/echoserver:1.4 --port=8080 --replicas=1 --expose"
+alias k8s-echo="curl -s \$(kubectl get svc echo-svc -o jsonpath="{.spec.clusterIP}:{.spec.ports[0].port}")"
+

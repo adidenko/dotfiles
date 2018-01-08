@@ -1,7 +1,14 @@
-" Use the Solarized Dark theme
+" Use different colorschemes for vim and vimdiff
 set background=dark
-colorscheme solarized
+if &diff
+  " Use special diff scheme
+  colorscheme diff
+else
+  " Use the Solarized Dark theme
+  colorscheme solarized
+endif
 let g:solarized_termtrans=1
+
 " Make Vim more useful
 set nocompatible
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
@@ -118,3 +125,4 @@ set tabstop=2
 set shiftwidth=2
 set autoindent
 filetype plugin indent on
+
