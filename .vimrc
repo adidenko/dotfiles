@@ -126,3 +126,30 @@ set shiftwidth=2
 set autoindent
 filetype plugin indent on
 
+" Puppet functions
+" Finds class parameters in visual block and saves
+" documentation template in @p register
+vnoremap <silent><expr> <c-p> YankAndPuppetParams()
+nmap     <silent>       <c-p> vip<c-p><esc>
+
+function! YankAndPuppetParams()
+  return 'y'
+        \ . ":call PuppetParams()\<CR>"
+        \ . ":silent normal! gv\<CR>"
+endfunction
+
+function! PuppetParams()
+  let @p = ''
+  let selection = split(getreg(''), '\n')
+  let pparams = map(selection,
+        \ 'matchstr(v:val, ''^\s\+$\zs\S\+\ze'')')
+  call filter(pparams, '!empty(v:val)')
+  if empty(pparams) | return | endif
+
+  for pp in pparams
+    let tmppp = '# [*' . pp . "*]\n#   Descr\n"
+    let @p .= tmppp
+  endfor
+
+endfunction
+
