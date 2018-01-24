@@ -46,15 +46,20 @@ endfunction
 function! PuppetValidate(pdict)
   let @o = ''
   if empty(a:pdict) | return | endif
+  if a:pdict.class == 'EMPTY'
+    let cpp = ''
+  else
+    let cpp = '::' . a:pdict.class . '::'
+  endif
   for pp in a:pdict.params
     if pp =~ '_path\|_file\|_dir'
-      let tmppp = 'validate_absolute_path($::' . a:pdict.class . '::' . pp . ")\n"
+      let tmppp = 'validate_absolute_path($' . cpp . pp . ")\n"
     elseif pp =~ '_ip\|_cidr\|_network'
-      let tmppp = 'validate_ip_address($::' . a:pdict.class . '::' . pp . ")\n"
+      let tmppp = 'validate_ip_address($' . cpp . pp . ")\n"
     elseif pp =~ '_list\|_array'
-      let tmppp = 'validate_array($::' . a:pdict.class . '::' . pp . ")\n"
+      let tmppp = 'validate_array($' . cpp . pp . ")\n"
     else
-      let tmppp = 'validate_string($::' . a:pdict.class . '::' . pp . ")\n"
+      let tmppp = 'validate_string($' . cpp . pp . ")\n"
     endif
     let @o .= tmppp
   endfor
