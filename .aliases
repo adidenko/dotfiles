@@ -143,7 +143,7 @@ function ysh(){
 }
 
 # Git
-alias syncupstrem="git fetch upstream && git checkout master && git merge upstream/master"
+alias syncupstream="git fetch upstream && git checkout master && git merge upstream/master"
 
 # Kubernetes
 alias k8s-node-taints="kubectl get nodes -o go-template-file="${HOME}/.kubernetes/templates/nodes-taints.tmpl""
