@@ -58,6 +58,8 @@ function! PuppetValidate(pdict)
       let tmppp = 'validate_ip_address($' . cpp . pp . ")\n"
     elseif pp =~ '_list\|_array'
       let tmppp = 'validate_array($' . cpp . pp . ")\n"
+    elseif pp =~ '_hash'
+      let tmppp = 'validate_hash($' . cpp . pp . ")\n"
     else
       let tmppp = 'validate_string($' . cpp . pp . ")\n"
     endif
