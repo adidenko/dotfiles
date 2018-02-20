@@ -139,7 +139,11 @@ alias path='echo -e ${PATH//:/\\n}'
 
 # Screen ssh
 function ysh(){
-  screen -t $1 ssh $1
+  if [ "$2" != "" ] ; then
+    screen -t $1 ssh -J $2 $1
+  else
+    screen -t $1 ssh $1
+  fi
 }
 
 # Git
