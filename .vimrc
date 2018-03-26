@@ -126,3 +126,20 @@ set shiftwidth=2
 set autoindent
 filetype plugin indent on
 
+function! InsertStatuslineColor(mode)
+  if a:mode == 'i'
+    hi statusline ctermbg=magenta
+  elseif a:mode == 'r'
+    hi statusline ctermbg=red
+  else
+    hi statusline ctermbg=yellow
+  endif
+endfunction
+
+au InsertEnter * call InsertStatuslineColor(v:insertmode)
+au InsertChange * call InsertStatuslineColor(v:insertmode)
+au InsertLeave * hi statusline ctermbg=cyan
+
+" default the statusline to green when entering Vim
+hi statusline guibg=cyan
+
