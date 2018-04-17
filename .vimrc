@@ -143,3 +143,11 @@ au InsertLeave * hi statusline ctermbg=cyan
 " default the statusline to green when entering Vim
 hi statusline guibg=cyan
 
+" Copyrights magic
+function! CopyRights()
+  silent! 0r $HOME/.vim/templates/copyright_header.txt
+  %s/FILENAME/\=@%/g
+endfunction
+" Insert it (,c)
+noremap <leader>c :call CopyRights()<CR>
+
