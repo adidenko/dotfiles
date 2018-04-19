@@ -155,3 +155,5 @@ alias k8s-netchecker="curl -s \$(kubectl -n netchecker get svc netchecker-servic
 alias k8s-install-echo="kubectl run echo-svc --image=gcr.io/google_containers/echoserver:1.4 --port=8080 --replicas=1 --expose"
 alias k8s-echo="curl -s \$(kubectl get svc echo-svc -o jsonpath="{.spec.clusterIP}:{.spec.ports[0].port}")"
 
+# Glances
+alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host --network host -it nicolargo/glances"
