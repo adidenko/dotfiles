@@ -139,8 +139,8 @@ alias path='echo -e ${PATH//:/\\n}'
 
 # Screen ssh
 function ysh(){
-  if [ "$2" != "" ] ; then
-    screen -t $1 ssh -J $2 $1
+  if [ "$JUMP" != "" ] ; then
+    screen -t $1 ssh -J $JUMP $1
   else
     screen -t $1 ssh $1
   fi
