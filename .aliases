@@ -156,7 +156,7 @@ alias k8s-install-echo="kubectl run echo-svc --image=gcr.io/google_containers/ec
 alias k8s-echo="curl -s \$(kubectl get svc echo-svc -o jsonpath="{.spec.clusterIP}:{.spec.ports[0].port}")"
 
 # Execute per namespace and labels
-function kubexec(){
+function kubeexec(){
   local ns="$1"
   local labels="$2"
   local cmd="$3"
@@ -167,6 +167,19 @@ function kubexec(){
     echo -e "\n$i"
     kubectl -n $ns exec -i -t $i -- $3
   done
+}
+
+# Get images
+function kubeimage(){
+  local ns="$1"
+  local labels="$2"
+
+  if [ -n "$labels" ] ; then
+    selector="-l $labels"
+  fi
+
+  kubectl -n $ns get pods $selector -o \
+    jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}'
 }
 
 # Glances
