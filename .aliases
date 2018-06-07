@@ -163,7 +163,7 @@ function kubeexec(){
 
   echo -e "Executing: $cmd\nNamespace: $ns\nLabels: $labels"
 
-  for i in $(kubectl -n fangorn get pod -l "$labels" -o jsonpath="{..metadata.name}") ; do
+  for i in $(kubectl -n $ns get pod -l "$labels" -o jsonpath="{..metadata.name}") ; do
     echo -e "\n$i"
     kubectl -n $ns exec -i -t $i -- $3
   done
@@ -175,7 +175,7 @@ function kubeimage(){
   local labels="$2"
 
   if [ -n "$labels" ] ; then
-    selector="-l $labels"
+    local selector="-l $labels"
   fi
 
   kubectl -n $ns get pods $selector -o \
