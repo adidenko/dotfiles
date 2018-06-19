@@ -151,3 +151,5 @@ endfunction
 " Insert it (,c)
 noremap <leader>c :call CopyRights()<CR>
 
+" Terraform
+let g:terraform_align=1
