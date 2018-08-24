@@ -154,6 +154,9 @@ alias k8s-node-taints="kubectl get nodes -o go-template-file="${HOME}/.kubernete
 alias k8s-netchecker="curl -s \$(kubectl -n netchecker get svc netchecker-service -o jsonpath="{.spec.clusterIP}:{.spec.ports[0].port}")/api/v1/connectivity_check"
 alias k8s-install-echo="kubectl run echo-svc --image=gcr.io/google_containers/echoserver:1.4 --port=8080 --replicas=1 --expose"
 alias k8s-echo="curl -s \$(kubectl get svc echo-svc -o jsonpath="{.spec.clusterIP}:{.spec.ports[0].port}")"
+alias kubedrain="kubectl drain --ignore-daemonsets --delete-local-data"
+alias prom_log_server="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server"
+alias prom_log_reload="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server-configmap-reload"
 
 # Execute per namespace and labels
 function kubeexec(){

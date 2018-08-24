@@ -4,8 +4,10 @@ if &diff
   " Use special diff scheme
   colorscheme diff
 else
-  " Use the Solarized Dark theme
-  colorscheme solarized
+  " Use the Solarized Dark theme for light background
+  " colorscheme solarized
+  " Use Default theme for dark/black background
+  colorscheme default
 endif
 let g:solarized_termtrans=1
 
@@ -22,7 +24,7 @@ set backspace=indent,eol,start
 " Optimize for fast terminal connections
 set ttyfast
 " Add the g flag to search/replace by default
-set gdefault
+" set gdefault
 " Use UTF-8 without BOM
 set encoding=utf-8 nobomb
 " Change mapleader
