@@ -1,2 +1,5 @@
+[defaults]
+timeout = 180
+
 [ssh_connection]
-ssh_args = -o ConnectTimeout=180 -o ProxyCommand="socat stdio SOCKS4A:127.0.0.1:%h:%p"
+ssh_args = -o ProxyCommand="socat stdio SOCKS4A:127.0.0.1:%h:%p"

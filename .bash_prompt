@@ -72,6 +72,10 @@ prompt_jobs() {
   fi
 }
 
+prompt_date() {
+  date '+%Y-%m-%d %H:%M:%S'
+}
+
 if tput setaf 1 &> /dev/null; then
 	tput sgr0; # reset colors
 	bold=$(tput bold);
@@ -141,6 +145,8 @@ kube_context() {
 PS1="\[\033]0;\W\007\]"; # working directory base name
 PS1+="\[${bold}\]\n"; # newline
 PS1+="\$(prompt_exitcode)"
+PS1+="\[${white}\]";
+PS1+="\$(prompt_date) "
 PS1+="\[${userStyle}\]\u"; # username
 PS1+="\$(kube_context)"
 PS1+="\[${white}\] at ";
