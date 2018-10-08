@@ -9,3 +9,6 @@ defscrollback 32000
 
 # Always start `screen` with UTF-8 enabled (`screen -U`)
 defutf8 on
+
+# SSH agent
+setenv SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
