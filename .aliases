@@ -155,6 +155,7 @@ alias k8s-netchecker="curl -s \$(kubectl -n netchecker get svc netchecker-servic
 alias k8s-install-echo="kubectl run echo-svc --image=gcr.io/google_containers/echoserver:1.4 --port=8080 --replicas=1 --expose"
 alias k8s-echo="curl -s \$(kubectl get svc echo-svc -o jsonpath="{.spec.clusterIP}:{.spec.ports[0].port}")"
 alias kubedrain="kubectl drain --ignore-daemonsets --delete-local-data"
+alias kubenotrunning='kubectl get pods --field-selector "status.phase!=Running" --all-namespaces'
 alias prom_log_server="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server"
 alias prom_log_reload="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server-configmap-reload"
 
@@ -188,5 +189,15 @@ function kubeimage(){
     jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}'
 }
 
+# Get pods running on node
+function kubenodepods(){
+  kubectl get pods --field-selector "spec.nodeName=$1" --all-namespaces
+}
+
 # Glances
 alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host --network host -it nicolargo/glances"
+
+# SSH configs
+alias scl="ln -sf ~/.ssh/config.lan ~/.ssh/config"
+alias scv="ln -sf ~/.ssh/config.vpn ~/.ssh/config"
+
