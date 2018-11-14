@@ -201,3 +201,11 @@ alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro -
 alias scl="ln -sf ~/.ssh/config.lan ~/.ssh/config"
 alias scv="ln -sf ~/.ssh/config.vpn ~/.ssh/config"
 
+# Docker ip netns exec
+function nsexec(){
+  local cid="$1"
+  local cpid=$(sudo docker inspect --format '{{.State.Pid}}' $cid)
+  if [[ -d "/proc/${cpid}/ns" ]] ; then
+    sudo nsenter -t $cpid -n "${@:2}"
+  fi
+}
