@@ -155,7 +155,8 @@ alias k8s-netchecker="curl -s \$(kubectl -n netchecker get svc netchecker-servic
 alias k8s-install-echo="kubectl run echo-svc --image=gcr.io/google_containers/echoserver:1.4 --port=8080 --replicas=1 --expose"
 alias k8s-echo="curl -s \$(kubectl get svc echo-svc -o jsonpath="{.spec.clusterIP}:{.spec.ports[0].port}")"
 alias kubedrain="kubectl drain --ignore-daemonsets --delete-local-data"
-alias kubenotrunning='kubectl get pods --field-selector "status.phase!=Running" --all-namespaces'
+alias kubepodnotrunning='kubectl get pods --field-selector "status.phase!=Running" --all-namespaces'
+alias kubepodrestarts='kubectl get pods --all-namespaces | sort -n -k 5'
 alias prom_log_server="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server"
 alias prom_log_reload="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server-configmap-reload"
 
@@ -209,3 +210,6 @@ function nsexec(){
     sudo nsenter -t $cpid -n "${@:2}"
   fi
 }
+
+# Git
+alias git-delete-merged="git branch --merged | grep -v .*master | egrep ^[[:space:]]\+\$USER | xargs git branch -d"
