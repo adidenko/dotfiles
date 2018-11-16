@@ -160,6 +160,7 @@ alias kubepodrestarts='kubectl get pods --all-namespaces | sort -n -k 5'
 alias prom_log_server="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server"
 alias prom_log_reload="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server-configmap-reload"
 alias kubepodpernode="kubectl get pods --all-namespaces -o wide | awk '{print \$8}' | sort | uniq -c | sort -k1 -n"
+alias kubenodeinfo="kubectl get nodes -o=custom-columns=NAME:.metadata.name,KERNEL:.status.nodeInfo.kernelVersion,KUBELET:.status.nodeInfo.kubeletVersion,CPU:.status.capacity.cpu,MEMORY:.status.capacity.memory"
 
 # Helm
 alias dry-helm="helm upgrade --install --namespace zzz zzz . --debug --dry-run"
