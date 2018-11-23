@@ -155,3 +155,6 @@ noremap <leader>c :call CopyRights()<CR>
 
 " Terraform
 let g:terraform_align=1
+
+" Markdown
+let g:vmt_list_indent_text="    "
