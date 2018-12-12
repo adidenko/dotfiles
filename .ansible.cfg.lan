@@ -1,0 +1,4 @@
+[defaults]
+timeout = 180
+
+[ssh_connection]
