@@ -150,18 +150,18 @@ function ysh(){
 alias syncupstream="git fetch upstream && git checkout master && git merge upstream/master"
 
 # Kubernetes
-alias k8s-node-taints="kubectl get nodes -o go-template-file="${HOME}/.kubernetes/templates/nodes-taints.tmpl""
 alias k8s-netchecker="curl -s \$(kubectl -n netchecker get svc netchecker-service -o jsonpath="{.spec.clusterIP}:{.spec.ports[0].port}")/api/v1/connectivity_check"
 alias k8s-install-echo="kubectl run echo-svc --image=gcr.io/google_containers/echoserver:1.4 --port=8080 --replicas=1 --expose"
 alias k8s-echo="curl -s \$(kubectl get svc echo-svc -o jsonpath="{.spec.clusterIP}:{.spec.ports[0].port}")"
 alias kubedrain="kubectl drain --ignore-daemonsets --delete-local-data"
 alias kubepodnotrunning='kubectl get pods --field-selector "status.phase!=Running" --all-namespaces'
 alias kubepodrestarts='kubectl get pods --all-namespaces | sort -n -k 5'
-alias prom_log_server="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server"
-alias prom_log_reload="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server-configmap-reload"
 alias kubepodpernode="kubectl get pods --all-namespaces -o wide | awk '{print \$8}' | sort | uniq -c | sort -k1 -n"
 alias kubenodeinfo="kubectl get nodes -o=custom-columns=NAME:.metadata.name,KERNEL:.status.nodeInfo.kernelVersion,KUBELET:.status.nodeInfo.kubeletVersion,CONTAINER-RUNTIME:.status.nodeInfo.containerRuntimeVersion,CPU:.status.capacity.cpu,MEMORY:.status.capacity.memory"
+alias kubenodetaints="kubectl get nodes -o go-template-file="${HOME}/.kubernetes/templates/nodes-taints.tmpl""
 alias kubeallimages="kubectl get pods --all-namespaces -o jsonpath='{..image}' |tr -s '[[:space:]]' '\n' | sort -u"
+alias prom_log_server="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server"
+alias prom_log_reload="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server-configmap-reload"
 
 # Helm
 alias dry-helm="helm upgrade --install --namespace zzz zzz . --debug --dry-run"
