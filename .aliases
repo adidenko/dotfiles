@@ -162,6 +162,7 @@ alias kubenodetaints="kubectl get nodes -o go-template-file="${HOME}/.kubernetes
 alias kubeallimages="kubectl get pods --all-namespaces -o jsonpath='{..image}' |tr -s '[[:space:]]' '\n' | sort -u"
 alias prom_log_server="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server"
 alias prom_log_reload="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server-configmap-reload"
+alias metallbleader="kubectl -n ingress get endpoints metallb-speaker -o go-template --template '{{ index .metadata.annotations \"control-plane.alpha.kubernetes.io/leader\" }}' | jq '.'"
 
 # Helm
 alias dry-helm="helm upgrade --install --namespace zzz zzz . --debug --dry-run"
