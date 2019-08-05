@@ -146,6 +146,12 @@ function ysh(){
   fi
 }
 
+function wssh(){
+  for i in `wss "$1" --short ` ; do
+    screen -t $i ssh $i
+  done
+}
+
 # Git
 alias syncupstream="git fetch upstream && git checkout master && git merge upstream/master"
 
@@ -198,6 +204,10 @@ function kubeimage(){
 function kubenodepods(){
   kubectl get pods --field-selector "spec.nodeName=$1" --all-namespaces
 }
+function kubenodedelpods(){
+  kubectl get pods --all-namespaces --field-selector "spec.nodeName=$1" -o json | jq  '.items[] | "kubectl delete pods \(.metadata.name) -n \(.metadata.namespace)"'
+}
+
 
 # Glances
 alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host --network host -it nicolargo/glances"
