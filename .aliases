@@ -197,7 +197,7 @@ function kubeimage(){
   fi
 
   kubectl -n $ns get pods $selector -o \
-    jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}'
+    jsonpath='{range .items[*]}{"\n"}{.metadata.name}{"\t"}{.status.phase}{"\t\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}'
 }
 
 # Get pods running on node
