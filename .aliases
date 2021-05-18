@@ -202,12 +202,16 @@ function kubeimage(){
 
 # Get pods running on node
 function kubenodepods(){
-  kubectl get pods --field-selector "spec.nodeName=$1" --all-namespaces
+  kubectl get pods --field-selector "spec.nodeName=$1" --all-namespaces ${@:2}
 }
 function kubenodedelpods(){
   kubectl get pods --all-namespaces --field-selector "spec.nodeName=$1" -o json | jq  '.items[] | "kubectl delete pods \(.metadata.name) -n \(.metadata.namespace)"'
 }
 
+# ingress
+function kubeingnodewatch(){
+  kubectl -n ingress exec -it $1 -- watch "echo ; ps afuxww ; echo ; curl http://127.0.0.1:10254/healthz -i ; echo ; curl http://127.0.0.1:10246/nginx_status -i"
+}
 
 # Glances
 alias glances="docker run --rm -v /var/run/docker.sock:/var/run/docker.sock:ro --pid host --network host -it nicolargo/glances"
