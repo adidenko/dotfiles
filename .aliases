@@ -163,6 +163,7 @@ alias kubedrain="kubectl drain --ignore-daemonsets --delete-local-data"
 alias kubepodnotrunning='kubectl get pods --field-selector "status.phase!=Running" --all-namespaces'
 alias kubepodrestarts='kubectl get pods --all-namespaces | sort -n -k 5'
 alias kubepodpernode="kubectl get pods --all-namespaces -o wide | awk '{print \$8}' | sort | uniq -c | sort -k1 -n"
+alias kubepodres='kubectl get pods --output=custom-columns="NAME:.metadata.name,CONTAINER:.spec.containers[*].name,REQUESTS:.spec.containers[*].resources.requests,LIMITS:.spec.containers[*].resources.limits"'
 alias kubenodeinfo="kubectl get nodes -o=custom-columns=NAME:.metadata.name,KERNEL:.status.nodeInfo.kernelVersion,KUBELET:.status.nodeInfo.kubeletVersion,CONTAINER-RUNTIME:.status.nodeInfo.containerRuntimeVersion,CPU:.status.capacity.cpu,MEMORY:.status.capacity.memory"
 alias kubenodetaints="kubectl get nodes -o go-template-file="${HOME}/.kubernetes/templates/nodes-taints.tmpl""
 alias kubeallimages="kubectl get pods --all-namespaces -o jsonpath='{..image}' |tr -s '[[:space:]]' '\n' | sort -u"
