@@ -152,6 +152,17 @@ function wssh(){
   done
 }
 
+function kssh(){
+  if [ "$1" == "" ] ; then
+    echo "ERROR: provide kubernetes node name"
+    exit 1
+  fi
+
+  local IP=$(kubectl get nodes $1 -o json | jq '.status.addresses[] | select(.type == "InternalIP") | .address' -r)
+  echo "SSHing into $IP"
+  ssh $IP
+}
+
 # Git
 alias syncupstream="git fetch upstream && git checkout master && git merge upstream/master"
 
@@ -189,17 +200,7 @@ function kubeexec(){
 }
 
 # Get images
-function kubeimage(){
-  local ns="$1"
-  local labels="$2"
-
-  if [ -n "$labels" ] ; then
-    local selector="-l $labels"
-  fi
-
-  kubectl -n $ns get pods $selector -o \
-    jsonpath='{range .items[*]}{"\n"}{.metadata.name}{"\t"}{.status.phase}{"\t\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}'
-}
+alias kubeimage='kubectl get pods --output=custom-columns="NAME:.metadata.name,CONTAINER:.spec.containers[*].name,IMAGE:.spec.containers[*].image"'
 
 # Get pods running on node
 function kubenodepods(){
@@ -232,3 +233,6 @@ function nsexec(){
 
 # Git
 alias git-delete-merged="git branch --merged | grep -v .*master | egrep ^[[:space:]]\+\$USER | xargs git branch -d"
+
+# Terminal
+alias fp="printf '\e[?2004l'"
