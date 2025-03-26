@@ -236,3 +236,8 @@ alias git-delete-merged="git branch --merged | grep -v .*master | egrep ^[[:spac
 
 # Terminal
 alias fp="printf '\e[?2004l'"
+
+# Kured
+alias kured_check='kubectl -n kured get ds kured -o jsonpath="{.metadata.annotations.weave\.works/kured-node-lock}"'
+alias kured_disable="kubectl -n kured annotate ds kured weave.works/kured-node-lock='{\"nodeID\":\"manual\"}'"
+alias kured_enable='kubectl -n kured annotate ds kured weave.works/kured-node-lock-'
