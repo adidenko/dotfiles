@@ -182,6 +182,7 @@ alias kubeallimages="kubectl get pods --all-namespaces -o jsonpath='{..image}' |
 alias prom_log_server="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server"
 alias prom_log_reload="kubectl -n monitoring logs -l app=prometheus,component=server -c prometheus-server-configmap-reload"
 alias metallbleader="kubectl -n ingress get endpoints metallb-speaker -o go-template --template '{{ index .metadata.annotations \"control-plane.alpha.kubernetes.io/leader\" }}' | jq '.'"
+alias kubedebug="kubectl debug -it --image=adgit/debug:20250204-v1"
 
 # Helm
 alias dry-helm="helm upgrade --install --namespace zzz zzz . --debug --dry-run"
@@ -201,7 +202,7 @@ function kubeexec(){
 }
 
 # Get images
-alias kubeimage='kubectl get pods --output=custom-columns="NAME:.metadata.name,CONTAINER:.spec.containers[*].name,IMAGE:.spec.containers[*].image"'
+alias kubeimage='kubectl --output=custom-columns="NAME:.metadata.name,CONTAINER:.spec.containers[*].name,IMAGE:.spec.containers[*].image"'
 
 # Get pods running on node
 function kubenodepods(){
